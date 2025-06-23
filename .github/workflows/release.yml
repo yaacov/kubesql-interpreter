@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version-file: 'go.mod'
+        
+    - name: Cache Go modules
+      uses: actions/cache@v4
+      with:
+        path: ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+          
+    - name: Download dependencies
+      run: make deps
+      
+    - name: Run tests
+      run: make test
+      
+    - name: Build static binary
+      run: make build-static
+      
+    - name: Generate SHA signature
+      run: make sha256
+      
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ./bin/kubesql-linux-amd64
+          ./bin/kubesql-linux-amd64.sha256
