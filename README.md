@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/yaacov/kubesql-interpreter?status.svg)](https://godoc.org/github.com/yaacov/kubesql-interpreter)
 [![Go Report Card](https://goreportcard.com/badge/github.com/yaacov/kubesql-interpreter)](https://goreportcard.com/report/github.com/yaacov/kubesql-interpreter)
 
-A Go library for parsing KubeSQL queries designed for kubectl operations. This parser enables KubeSQL syntax for querying Kubernetes resources, making it easier to filter, sort, and limit results when working with kubectl.
+A Go library for parsing KubeSQL queries designed for kubectl sql operations. This parser enables KubeSQL syntax for querying Kubernetes resources, making it easier to filter, sort, and limit results when working with kubectl.
 
 ## Usage
 
